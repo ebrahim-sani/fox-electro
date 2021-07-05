@@ -4,7 +4,7 @@ function Header() {
   return (
     <div className="flex items-center justify-between p-3 bg-primary">
       <div>
-        <span className="text-white ml-4 text-lg lg:ml-36 font-mono">
+        <span className="text-white cursor-pointer ml-4 text-lg lg:ml-36 font-mono">
           FOX ELECTRO
         </span>
       </div>
@@ -16,7 +16,7 @@ function Header() {
         <p className="link">Contact</p>
       </dir>
 
-      <MenuIcon className="h-8 text-white mr-4 md:hidden" />
+      <MenuIcon className="h-8 text-white mr-4 cursor-pointer md:hidden" />
     </div>
   );
 }
