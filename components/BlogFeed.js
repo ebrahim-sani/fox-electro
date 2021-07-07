@@ -1,7 +1,11 @@
-function BlogFeed() {
+import Posts from "./Posts";
+
+function BlogFeed({ posts }) {
   return (
     <div>
-      <h3>Blog feed...</h3>
+      {posts.map((post) => (
+        <Posts key={post.sys.id} post={post} />
+      ))}
     </div>
   );
 }

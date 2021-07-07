@@ -1,3 +1,5 @@
+import { request, GraphQLClient, gql } from "graphql-request";
+
 import Head from "next/head";
 import { createClient } from "contentful";
 
@@ -14,9 +16,11 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+
       <main>
         <Banner />
-        <BlogFeed />
+        {/* <BlogFeed posts={posts} /> */}
+        {/* <h2>{posts.fields.title}</h2> */}
 
         {/* Footer */}
       </main>
@@ -25,27 +29,30 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const client = createClient({
-    space: process.env.SPACE_ID, // ID of a Compose-compatible space to be used \
-    accessToken: process.env.ACCESS_TOKEN, // delivery API key for the space \
+  const endpoint =
+    "https://api.contentful.com/content/v1/spaces/${process.env.CD_SPACE}";
+
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: "Bearer ${process.env.CD_TOKEN}",
+    },
   });
 
-  const posts = await client.getEntries({ content_type: "post" });
+  const postQuery = gql`
+    {
+      postCollection {
+        items {
+          title
+        }
+      }
+    }
+  `;
+
+  const posts = await graphQLClient.request(postQuery);
+  console.log(JSON.stringify(data, undefined, 2));
   return {
     props: {
       posts,
     },
   };
 }
-
-// export async function getServerSideProps(context) {
-//   const posts = await fetch("https://cdn.contentful.com").then(
-//     (res) => res.json
-//   );
-
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// }
