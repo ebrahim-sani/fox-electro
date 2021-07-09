@@ -28,13 +28,12 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getStaticProps() {
-  const endpoint =
-    "https://api.contentful.com/content/v1/spaces/${process.env.CD_SPACE}";
+export const getStaticProps = async () => {
+  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CD_SPACE}`;
 
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
-      authorization: "Bearer ${process.env.CD_TOKEN}",
+      authorization: `Bearer ${process.env.CD_TOKEN}`,
     },
   });
 
@@ -49,10 +48,10 @@ export async function getStaticProps() {
   `;
 
   const posts = await graphQLClient.request(postQuery);
-  console.log(JSON.stringify(data, undefined, 2));
+
   return {
     props: {
       posts,
     },
   };
-}
+};
