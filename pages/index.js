@@ -1,14 +1,12 @@
-import { request, GraphQLClient, gql } from "graphql-request";
-
 import Head from "next/head";
-import { createClient } from "contentful";
-
+import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import BlogFeed from "../components/BlogFeed";
+import { getPostings } from "../utils/contentful-helper";
+import Link from "next/link";
 
-export default function Home({ posts }) {
-  console.log(posts);
+export default function Home({ posts, banners }) {
   return (
     <div className="">
       <Head>
@@ -17,41 +15,21 @@ export default function Home({ posts }) {
       </Head>
       <Header />
 
-      <main>
-        <Banner />
-        {/* <BlogFeed posts={posts} /> */}
-        {/* <h2>{posts.fields.title}</h2> */}
-
-        {/* Footer */}
+      <main className="bg-gray-100">
+        <Banner banners={banners} />
+        <BlogFeed posts={posts} />
+        <Footer />
       </main>
     </div>
   );
 }
 
 export const getStaticProps = async () => {
-  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CD_SPACE}`;
-
-  const graphQLClient = new GraphQLClient(endpoint, {
-    headers: {
-      authorization: `Bearer ${process.env.CD_TOKEN}`,
-    },
-  });
-
-  const postQuery = gql`
-    {
-      postCollection {
-        items {
-          title
-        }
-      }
-    }
-  `;
-
-  const posts = await graphQLClient.request(postQuery);
-
+  const post = await getPostings();
   return {
     props: {
-      posts,
+      posts: post.blogPostCollection.items,
+      banners: post.bannerCollection.items,
     },
   };
 };

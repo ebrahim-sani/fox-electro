@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["cdn.contentful.com", "app.contentful.com"],
+    domains: ["images.ctfassets.net"],
   },
 };

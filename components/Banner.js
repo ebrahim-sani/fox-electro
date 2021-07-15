@@ -1,7 +1,14 @@
-function Banner() {
+import Image from "next/image";
+
+function Banner({ banners }) {
+  console.log(banners);
   return (
-    <div className="flex justify-center items-center mt-3">
-      <img src="/banner.jpeg" alt="banner" width={500} height={100} />
+    <div>
+      {banners.map(({ banner, title }) => {
+        <div>
+          <img src={banner.url} alt="img" />
+        </div>;
+      })}
     </div>
   );
 }
