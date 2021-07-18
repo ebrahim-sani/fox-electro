@@ -3,8 +3,8 @@ import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import BlogFeed from "../components/BlogFeed";
-import { getPostings } from "../utils/contentful-helper";
 import Link from "next/link";
+import { getPostings } from "../utils/contentful-helper";
 
 export default function Home({ posts, banners }) {
   return (
@@ -16,7 +16,7 @@ export default function Home({ posts, banners }) {
       <Header />
 
       <main className="bg-gray-100">
-        <Banner banners={banners} />
+        {/* <Banner banners={banners} /> */}
         <BlogFeed posts={posts} />
         <Footer />
       </main>
@@ -29,7 +29,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       posts: post.blogPostCollection.items,
-      banners: post.bannerCollection.items,
+      // banners: post.bannerCollection.items,
     },
   };
 };

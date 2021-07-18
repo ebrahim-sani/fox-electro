@@ -31,7 +31,7 @@ function Footer() {
               href="#"
               class="text-xl font-bold text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-300"
             >
-              Brand
+              Fox Electro
             </a>
           </div>
 
